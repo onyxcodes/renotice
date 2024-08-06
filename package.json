@@ -7,6 +7,7 @@
     "src": "src/index.ts",
     "scripts": {
       "build": "rimraf --glob lib/* && webpack --node-env=production",
+      "prepare": "npm run build",
       "test": "jest"
     },
     "author": "Onyx <onyxganda@gmail.com> (https://onxy.ac)",
