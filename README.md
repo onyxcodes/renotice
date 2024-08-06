@@ -1,8 +1,18 @@
 # React Library Template
+UI notification system to notify and prompt user through redux messages.
 
-This is a template for creating React libraries.
+## Install
 
-## Getting Started
+```bash
+npm install --save react-redux-notifier
+```
+
+## Usage
+<!-- **Work in Progress** -->
+
+This section is currently being worked on and will be updated soon.
+
+## Building
 
 1. Clone the repository.
 2. Run `npm install` to install dependencies.
