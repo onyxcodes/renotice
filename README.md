@@ -1,4 +1,4 @@
-# React Library Template
+# React Redux Notifier
 UI notification system to notify and prompt user through redux messages.
 
 ## Install
@@ -19,10 +19,3 @@ This section is currently being worked on and will be updated soon.
 3. Develop your library in the `src` directory.
 4. Run `npm run build` to build the library.
 5. Run `npm test` to run tests.
-
-## Roadmap
-- Integrate into a templating tool like [Plop](https://plopjs.com/)
-
-## License
-
-MIT
