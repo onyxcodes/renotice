@@ -8,6 +8,7 @@ import NotificationElement from '../NotificationElement'
 import { Button } from 'alenite-design'
 
 import { removeNotification, callback } from '../../.'
+import { Dispatch } from '@reduxjs/toolkit'
 
 type NotificationAreaElOpts = {
   element?: never
@@ -23,12 +24,12 @@ type NotificationAreaOpts = {
 interface NotificationAreaProps {
   notifications: Notifier.NotificationObject[]
   types?: Notifier.NotificationType[]
+  dispatch: Dispatch
   areaId?: string
   options?: NotificationAreaElOpts | NotificationAreaOpts
 }
 const NotificationArea: React.VFC<NotificationAreaProps> = (props) => {
-  const { notifications, types, areaId = 'notification-area', options } = props
-  const dispatch = useDispatch()
+  const { notifications, types, areaId = 'notification-area', options, dispatch } = props
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [gotRef, markRefPresence] = React.useState(false)
