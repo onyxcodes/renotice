@@ -39,4 +39,6 @@ export declare namespace Notifier {
 export { default as notificationsMiddleware } from './middleware';
 export { default as NotificationArea } from './components/NotificationArea';
 export { default as NotificationElement } from './components/NotificationElement';
+export { default as notifications } from "./notifications";
 export * from './notifications';
+export * from './middleware';

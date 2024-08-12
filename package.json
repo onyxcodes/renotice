@@ -1,6 +1,6 @@
 {
     "name": "react-redux-notifier",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "UI notification system to notify and prompt user through redux messages",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",

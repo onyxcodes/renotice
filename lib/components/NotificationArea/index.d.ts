@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import './index.scss';
 import { Notifier } from '../../';
+import { Dispatch } from '@reduxjs/toolkit';
 type NotificationAreaElOpts = {
     element?: never;
     alert?: JSX.Element;
@@ -14,6 +15,7 @@ type NotificationAreaOpts = {
 interface NotificationAreaProps {
     notifications: Notifier.NotificationObject[];
     types?: Notifier.NotificationType[];
+    dispatch: Dispatch;
     areaId?: string;
     options?: NotificationAreaElOpts | NotificationAreaOpts;
 }
