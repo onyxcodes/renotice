@@ -10,6 +10,12 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
+    "sourceMap": true,
+    // Ensure that .d.ts files are created by tsc, but not .js files
+    "emitDeclarationOnly": true,
+    // Ensure that Babel can safely transpile files in the TypeScript project
+    "isolatedModules": true,
+    "skipLibCheck": true,
     "paths": {
       "styles": ["styles/*"],
       "components": ["components/*"],
@@ -18,7 +24,7 @@
     }
   },
   "include": [
-    "src"
+    "src/index.ts"
   ],
   "exclude": [
     "src/**/*.test.ts",

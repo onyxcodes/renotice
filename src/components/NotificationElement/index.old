@@ -1,0 +1,115 @@
+import React from 'react'
+
+// eslint-disable-next-line no-unused-vars
+import { Notifier } from '../../'
+import ReactDOM from 'react-dom'
+
+// const getGenericIcon = (type: Notifier.NotificationObject['type']) => {
+//   let iconName
+//   switch (type) {
+//     case 'warning':
+//       iconName = 'exclamation-triangle'
+//       break
+//     case 'debug':
+//       iconName = 'lightbulb-o'
+//       break
+//     case 'error':
+//       iconName = 'frown-o'
+//       break
+//     case 'prompt':
+//       iconName = 'question-circle'
+//       break
+//     case 'pending':
+//       iconName = 'hourglass-end'
+//       break
+//     case 'info':
+//     default:
+//       iconName = 'info-circle'
+//       break
+//   }
+
+//   return <Icon name={iconName} />
+// }
+
+const NotificationElement: Notifier.NotificationElement<
+  Notifier.NotificationElementProps
+> = (props): JSX.Element => {
+  const {
+    areaId = 'modal-area',
+    active = true,
+    // id,
+    type = 'info',
+    message,
+    // actions,
+    clearable = true,
+    // timeout,
+    // timestamp,
+    showIcon = true,
+    buttons,
+    // showElapsedTime = false,
+    buttonMapping,
+    closeOnAction = true,
+    onClose,
+    alertMapping,
+    iconMapping
+  } = props
+
+  const [visible, setVisible] = React.useState(true)
+
+  React.useEffect(() => {
+    if (active !== visible) {
+      setVisible(active)
+    }
+  }, [active])
+
+  let alertIcon
+  if (showIcon) {
+    // When provided use custom icon mapping
+    alertIcon = iconMapping && iconMapping(type)
+    // If it wasn't mapped yet use provided icon mapping
+    // if (!alertIcon) alertIcon = getGenericIcon(type)
+  }
+
+  const renderedButtons = React.useMemo(
+    () =>
+      buttons?.map((button, i) => {
+        buttonMapping({key: i, ...button})
+      }),
+    [buttons]
+  )
+
+  const hide = React.useCallback(() => {
+    setVisible(false)
+  }, [])
+
+  const area = document.getElementById(areaId)
+
+  return area ? (
+    ReactDOM.createPortal(
+      alertMapping({...props, buttons: renderedButtons, }),
+      area
+    )
+  ) : (
+    alertMapping({ ...props, buttons: renderedButtons})
+  )
+}
+
+
+// <alertMapping.type
+//   {...alertMapping.props}
+//   icon={alertIcon}
+//   visible={visible}
+//   onClose={onClose}
+//   showClose={clearable}
+//   closeAlert={hide}
+// >
+//   <>
+//     <span>{message}</span>
+//     {/* TODO: Change to more appropriate className */}
+//     {renderedButtons?.length && (
+//       <div className='alert-buttons px05 f jcc'>{renderedButtons}</div>
+//     )}
+//   </>
+// </alertMapping.type>
+
+export default NotificationElement

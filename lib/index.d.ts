@@ -36,9 +36,10 @@ export declare namespace Notifier {
     }
     type NotificationElement<P extends NotificationElementProps = NotificationElementProps> = React.VFC<P>;
 }
-export { default as notificationsMiddleware } from './middleware';
+export { default as notificationsMiddleware } from './utils/middleware';
 export { default as NotificationArea } from './components/NotificationArea';
 export { default as NotificationElement } from './components/NotificationElement';
-export { default as notifications } from "./notifications";
-export * from './notifications';
-export * from './middleware';
+export { default as notifications } from "./utils/notifications";
+export * from './utils/notifications';
+export * from './utils/middleware';
+export { default as ReactFromModule } from 'react';

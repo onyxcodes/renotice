@@ -56,9 +56,10 @@ export namespace Notifier {
     // to allow different "types"/"category" of notifications to be
     // placed in separate spaces
     areaId?: string
-    alert?: JSX.Element
+    alertMapping: (props:{[key: string]: any}) => JSX.Element
     showIcon?: boolean
-    buttons?: JSX.Element[]
+    buttons: {[key: string]: any}[]
+    buttonMapping: (props: {[key: string]: any}) => JSX.Element
     onClose?: () => void
     showElapsedTime?: boolean
     closeOnAction?: boolean
@@ -81,11 +82,14 @@ export namespace Notifier {
 // }
 // export { notifications, notificationsMiddleware }
 
-export { default as notificationsMiddleware } from './middleware'
+export { default as notificationsMiddleware } from './utils/middleware'
 export { default as NotificationArea } from './components/NotificationArea'
-export { default as NotificationElement } from './components/NotificationElement'
-export { default as notifications } from "./notifications";
+// export { default as NotificationElement } from './components/NotificationElement'
+export { default as notifications } from "./utils/notifications";
 
 // Explicitly export types
-export * from './notifications';
-export * from './middleware';
+export * from './utils/notifications';
+export * from './utils/middleware';
+
+// node_modules/mymodule/src/index.js
+export { default as ReactFromModule } from 'react'

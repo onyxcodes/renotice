@@ -13,7 +13,7 @@ import {
 } from '@reduxjs/toolkit'
 
 // eslint-disable-next-line no-unused-vars
-import { createNotification, updateNotification, callback, Notifier } from './'
+import { createNotification, updateNotification, callback, Notifier } from '..'
 
 /**
  * @description: Given an action, it get tested against a set of possibile action creators

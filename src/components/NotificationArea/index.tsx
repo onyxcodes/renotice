@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useCallback, ReactElement } from 'react'
-import { useDispatch } from 'react-redux'
 import './index.scss'
 
 import { Notifier } from '../../'
-import NotificationElement from '../NotificationElement'
-import { Button } from 'alenite-design'
+// import NotificationElement from '../NotificationElement'
 
-import { removeNotification, callback } from '../../.'
-import { Dispatch } from '@reduxjs/toolkit'
+import { removeNotification, callback } from '../../'
+import { Dispatch } from 'redux'
 
 type NotificationAreaElOpts = {
   element?: never
@@ -25,18 +23,18 @@ interface NotificationAreaProps {
   notifications: Notifier.NotificationObject[]
   types?: Notifier.NotificationType[]
   dispatch: Dispatch
+  render: (props: {[key: string]: any}) => JSX.Element
   areaId?: string
   options?: NotificationAreaElOpts | NotificationAreaOpts
 }
 const NotificationArea: React.VFC<NotificationAreaProps> = (props) => {
-  const { notifications, types, areaId = 'notification-area', options, dispatch } = props
-
+  const { notifications, types, areaId = 'notification-area', render, dispatch } = props
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [gotRef, markRefPresence] = React.useState(false)
 
   // Sets the container's ref, only when areaId was not provided
   // and the ref hasn't been already set
-  const refSetter = useCallback((node) => {
+  const refSetter = useCallback((node: HTMLDivElement) => {
     if (areaId && !containerRef.current && node) {
       containerRef.current = node
       markRefPresence(true)
@@ -50,19 +48,20 @@ const NotificationArea: React.VFC<NotificationAreaProps> = (props) => {
     [dispatch]
   )
 
-  const isAreaOpts = (
-    opts: NotificationAreaOpts | NotificationAreaElOpts | undefined
-  ): opts is NotificationAreaOpts => {
-    return opts?.hasOwnProperty('element') || false
-  }
+  // const isAreaOpts = (
+  //   opts: NotificationAreaOpts | NotificationAreaElOpts | undefined
+  // ): opts is NotificationAreaOpts => {
+  //   return opts?.hasOwnProperty('element') || false
+  // }
 
-  const element = options?.element || <NotificationElement />
+  // const element = options?.element || NotificationElement
 
-  const componentOptions: NotificationAreaElOpts =
-    !isAreaOpts(options) && options ? options : {}
+  // const componentOptions: NotificationAreaElOpts =
+  //   !isAreaOpts(options) && options ? options : {}
 
   const renderedNotifications = React.useMemo(() => {
     if (gotRef) {
+      console.log("Got ref, rendering notificaitons", notifications)
       return notifications
         .filter((n) => {
           if (types?.length && n.type) return types.includes(n.type)
@@ -75,29 +74,19 @@ const NotificationArea: React.VFC<NotificationAreaProps> = (props) => {
                 callback(action.callback, notification.id, action.payload)
               )
             }
-            return (
-              <Button key={i} onClick={buttonAction}>
-                {action.label}
-              </Button>
-            )
+            return {
+              label: action.label,
+              onClick: buttonAction,
+            }
           })
 
-          return (
-            <element.type
-              key={notification.id}
-              {...componentOptions}
-              areaId={containerRef.current!.id}
-              message={notification.message}
-              active={notification.active}
-              type={notification.type}
-              clearable={notification.clearable}
-              timeout={notification.timeout}
-              timestamp={notification.timestamp}
-              showElapsedTime={notification.timestamp != null}
-              buttons={buttons}
-              onClose={() => closeNotification(notification.id)}
-            />
-          )
+          return render({
+            key: i,
+            ...notification,
+            areaId: containerRef.current!.id,
+            buttons,
+            onClose: () => closeNotification(notification.id),
+          })
         })
     } else return []
   }, [notifications, gotRef])
@@ -108,5 +97,22 @@ const NotificationArea: React.VFC<NotificationAreaProps> = (props) => {
     </div>
   )
 }
+
+// return (
+//   <element.type
+//     key={notification.id}
+//     {...componentOptions}
+//     areaId={containerRef.current!.id}
+//     message={notification.message}
+//     active={notification.active}
+//     type={notification.type}
+//     clearable={notification.clearable}
+//     timeout={notification.timeout}
+//     timestamp={notification.timestamp}
+//     showElapsedTime={notification.timestamp != null}
+//     buttons={buttons}
+//     onClose={() => closeNotification(notification.id)}
+//   />
+// )
 
 export default NotificationArea

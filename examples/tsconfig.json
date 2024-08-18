@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "renotice": ["../../src"],
+      "styles": ["styles/*"],
+      "components": ["components/*"],
+      "hooks": ["hooks/*"],
+      "assets": ["assets/*"],
+      "views": ["views/*"],
+      "features": ["features/*"],
+      "utils": ["utils/*"],
+      "store": ["store.ts"],
+    }
+  },
+  "include": [
+    "src", "webpack.config.js"
+  ]
+}

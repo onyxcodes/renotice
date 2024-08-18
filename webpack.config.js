@@ -16,10 +16,21 @@ const config = {
     libraryTarget: 'commonjs'
     },
     externals: {
-        react: 'react',
-        reactDOM: 'react-dom'
+        // Use external version of React
+        "react": {
+            "commonjs": "react",
+            "commonjs2": "react",
+            "amd": "react",
+            "root": "React"
+        },
+        "react-dom": {
+            "commonjs": "react-dom",
+            "commonjs2": "react-dom",
+            "amd": "react-dom",
+            "root": "ReactDOM"
+        }
     },
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
     module: {
         rules: [
             {
@@ -35,9 +46,14 @@ const config = {
                 ],
             },
             {
-                test: /\.(ts|tsx)$/i,
-                loader: 'ts-loader',
-                exclude: ['/node_modules/'],
+                test: /\.(tsx|ts)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                      presets: ['@babel/preset-env', '@babel/preset-react']
+                    }
+                }
             },
         ]
     },
