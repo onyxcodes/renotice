@@ -26,6 +26,9 @@
   "peerDependencies": {
     "react": "^16.0.0"
   },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7"
+  },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
     "babel-eslint": "^10.0.3",

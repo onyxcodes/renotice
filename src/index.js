@@ -1,6 +1,8 @@
-import React from 'react'
-import styles from './styles.module.css'
+export { default as notificationsMiddleware } from './utils/middleware'
+export { default as NotificationArea } from './components/NotificationArea'
+// export { default as NotificationElement } from './components/NotificationElement'
+export { default as notifications } from './utils/notifications'
 
-export const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+// Explicitly export types
+export * from './utils/notifications'
+export * from './utils/middleware'
