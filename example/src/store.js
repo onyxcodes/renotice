@@ -1,5 +1,5 @@
 import { configureStore, Dispatch } from '@reduxjs/toolkit';
-import api, { fetchExampleData } from './features/api';
+import api, { fetchExampleData, fetchFailingData } from './features/api';
 import { notificationsMiddleware, notifications } from 'renotice';
 
 const exampleCallback = (
@@ -8,16 +8,18 @@ const exampleCallback = (
   ) => (dispatch) => {
     const { result } = payload;
     window.alert("Closed notification");
-    // dispatch(removeNotification(notificationId));
 }
   
 
 const { pendingListener, fulfilledListener, rejectedListener, callbackListener } = notificationsMiddleware(
-    [fetchExampleData],
+    [fetchExampleData, fetchFailingData],
     {
       actionDescriptors: {
         pending: {
           [fetchExampleData.typePrefix]: 'Loading data..',
+        },
+        fulfilled: {
+          [fetchExampleData.typePrefix]: 'Request completed!',
         },
         rejected: {
           [fetchExampleData.typePrefix]: 'There was a problem while loading data..',

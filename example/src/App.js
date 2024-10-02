@@ -2,9 +2,7 @@ import React from 'react'
 
 import { NotificationArea, notifications } from 'renotice'
 import { useAppDispatch, useAppSelector } from './hooks'
-import NotificationButton from './components/NotificationButton'
-import 'renotice/dist/index.css'
-import ApiButton from './components/ApiButton'
+import {NotificationButton, ApiButton, FailingApiButton} from './components/Buttons'
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -13,6 +11,7 @@ const App = () => {
     <h1>Renotice Example</h1>
     <NotificationButton />
     <ApiButton />
+    <FailingApiButton />
     <NotificationArea
       notifications={notifications}
       dispatch={dispatch}

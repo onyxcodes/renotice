@@ -13,7 +13,13 @@ import {
 } from '@reduxjs/toolkit'
 // import {MiddlewareConf} from '../types'
 // eslint-disable-next-line no-unused-vars
-import { createNotification, updateNotification, callback, Notifier } from '..'
+import {
+  createNotification,
+  removeNotification,
+  updateNotification,
+  callback,
+  Notifier
+} from '..'
 
 /**
  * @description: Given an action, it get tested against a set of possibile action creators
@@ -21,10 +27,7 @@ import { createNotification, updateNotification, callback, Notifier } from '..'
  * @param {AnyAction} action
  * @param {AsyncThunk<any, any, {}>[]} creators
  */
-const getActionCreator = (
-  action,
-  creators
-) => {
+const getActionCreator = (action, creators) => {
   for (const creator of creators) {
     const isCurrentAction = isAsyncThunkAction(creator)
     if (isCurrentAction(action)) {
@@ -34,23 +37,17 @@ const getActionCreator = (
   return null
 }
 
-/** 
-  * @param {AsyncThunk<any, any, {}>[]} asyncThunks
-  * @param {MiddlewareConf} options [optional]
+/**
+ * @param {AsyncThunk<any, any, {}>[]} asyncThunks
+ * @param {MiddlewareConf} options [optional]
  */
-const notificationsMiddleware = (
-  asyncThunks,
-  options
-) => {
+const notificationsMiddleware = (asyncThunks, options) => {
   const _callbacks = {
     ...{
       reattemptAction:
         (notificationId, { action }) =>
         (dispatch) => {
-          const actionCreator = getActionCreator(
-            action,
-            asyncThunks
-          )
+          const actionCreator = getActionCreator(action, asyncThunks)
           if (isAsyncThunkAction(action) && actionCreator) {
             dispatch(actionCreator(action.meta.arg))
           }
@@ -83,12 +80,7 @@ const notificationsMiddleware = (
       const actionType = action.type.replace('/rejected', '')
 
       // Clears corresponding pending notification
-      dispatch(
-        updateNotification({
-          id: action.meta.requestId,
-          active: false
-        })
-      )
+      dispatch(removeNotification(action.meta.requestId))
 
       // Prepare and dispatch error notification
       const errNotification = {
@@ -147,12 +139,7 @@ const notificationsMiddleware = (
       const dispatch = listenerApi.dispatch
 
       // Clears corresponding pending notification
-      dispatch(
-        updateNotification({
-          id: action.meta.requestId,
-          active: false
-        })
-      )
+      dispatch(removeNotification(action.meta.requestId))
     }
   })
   return {

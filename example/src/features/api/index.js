@@ -2,22 +2,35 @@ import { createAsyncThunk, createReducer } from "@reduxjs/toolkit";
 
 const doFetch = () => {
     return new Promise((resolve, reject) => {
-        console.log("Executing promise");
         setTimeout(() => {
             resolve({
                 data: 'Example data'
             });
-        }, 1000);
+        }, 2500);
+    });
+}
+
+const doFailingFetch = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject("Failures happen");
+        }, 2500);
     });
 }
 
 export const fetchExampleData = createAsyncThunk(
     'example/fetchData',
     async () => {
-        console.log("Executing async thunk")
-        return await fetchExampleData();
+        return await doFetch();
     }
 );
+
+export const fetchFailingData = createAsyncThunk(
+    'example/fetchFailingData',
+    async () => {
+        return await doFailingFetch();
+    }
+)
 
 const initialState = {
     data: null,
@@ -35,6 +48,17 @@ const reducer = createReducer(initialState, (builder) => {
             state.data = action.payload.data;
         })
         .addCase(fetchExampleData.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        })
+        .addCase(fetchFailingData.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(fetchFailingData.fulfilled, (state, action) => {
+            state.loading = false;
+            state.data = action.payload.data;
+        })
+        .addCase(fetchFailingData.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
         });
