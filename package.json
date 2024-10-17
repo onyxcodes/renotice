@@ -1,10 +1,21 @@
 {
   "name": "renotice",
   "version": "1.0.0",
-  "description": "Made with create-react-library",
-  "author": "onyxcodes",
-  "license": "MIT",
-  "repository": "onyxcodes/renotice",
+  "description": "React notification system to notify and prompt user through redux messages",
+  "author": "Onyx <onyxganda@gmail.com> (https://onxy.ac)",
+  "contributors": [
+    "Onyx <onyxganda@gmail.com> (https://onyx.ac)"
+  ],
+  "license": "CC-BY-SA-4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onyxcodes/renotice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onyxcodes/renotice/issues",
+    "email": "onyxganda@gmail.com"
+  },
+  "keywords": ["react", "redux", "notifications", "ui-components"],
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

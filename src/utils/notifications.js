@@ -38,7 +38,6 @@ const notificationsReducer = (state = initialState, action) => {
        * @var {Notifier.NewNotificationObject} _notification
        */
       var _notification = action.payload
-      console.log('pushing notification with data', { payload: action.payload })
       return [...state, _notification]
 
     case loadNotifications.type:
