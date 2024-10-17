@@ -1,15 +1,15 @@
-import { configureStore, Dispatch } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import api, { fetchExampleData, fetchFailingData } from './features/api';
-import { notificationsMiddleware, notifications } from 'renotice';
+import { notificationsMiddleware, notifications, removeNotification } from 'renotice';
 
 const exampleCallback = (
     notificationId, 
     payload
   ) => (dispatch) => {
     const { result } = payload;
-    window.alert("Closed notification");
+    window.alert("Closed notification: "+result);
+    dispatch(removeNotification(notificationId))
 }
-  
 
 const { pendingListener, fulfilledListener, rejectedListener, callbackListener } = notificationsMiddleware(
     [fetchExampleData, fetchFailingData],
@@ -47,5 +47,3 @@ export const store = configureStore({
     callbackListener.middleware
 	)
 });
-
-// export const getNotifications = (state: AppState) => state.notifications;

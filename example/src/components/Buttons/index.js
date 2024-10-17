@@ -23,7 +23,31 @@ export const FailingApiButton = () => {
     return <button onClick={handleClick}>Call failing api</button>
 }
 
-export const NotificationButton = () => {
+export const WithActionButton = () => {
+    const dispatch = useAppDispatch()
+
+    const handleClick = () => {
+        dispatch(
+            createNotification({
+                id: 'trigger-notification',
+                message: 'Notification with actions!',
+                actions: [
+                    { label: 'Yes', callback: 'exampleCallback', payload: {
+                        result: true
+                    } },
+                    { label: 'No', callback: 'exampleCallback', payload: {
+                        result: false
+                    } },
+                ],
+                type: 'info'
+            })
+        )
+    }
+
+    return <button onClick={handleClick}>Notification with actions</button>
+}
+
+export const BasicNotificationBtn = () => {
     const dispatch = useAppDispatch()
 
     const handleClick = () => {
@@ -36,5 +60,5 @@ export const NotificationButton = () => {
         )
     }
 
-    return <button onClick={handleClick}>Show Notification</button>
+    return <button onClick={handleClick}>Basic Notification</button>
 }

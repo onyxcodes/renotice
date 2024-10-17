@@ -1,4 +1,4 @@
-import { AnyAction, createAction } from '@reduxjs/toolkit'
+import { createAction } from '@reduxjs/toolkit'
 
 // eslint-disable-next-line no-unused-vars
 
